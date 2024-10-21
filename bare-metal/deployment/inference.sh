@@ -92,6 +92,10 @@ echo "updated $COMBINED_ENV"
 pwd
 ls
 
+# Change back to the original directory where the command was issued
+original_dir=$(pwd)
+cd "$original_dir" || exit
+
 # calling all necessary compose,y passing -p
 # will create different stacks in portainer
 docker compose \
