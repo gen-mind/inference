@@ -78,14 +78,14 @@ check_and_create_network "backend-network"
 
 
 # Check if combined.env exists, if not create it
-COMBINED_ENV="../config/combined.env"
+COMBINED_ENV="config/combined.env"
 
 if [ ! -f "$COMBINED_ENV" ]; then
   touch "$COMBINED_ENV"
 fi
 
 # Combine environment variables from anythingllm.env and common.env
-cat ../config/anythingllm/anythingllm.env ../config/common/common.env > "$COMBINED_ENV"
+cat config/anythingllm/anythingllm.env config/common/common.env > "$COMBINED_ENV"
 
 echo "updated $COMBINED_ENV"
 
