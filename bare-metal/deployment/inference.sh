@@ -1,14 +1,5 @@
 #!/bin/bash
 
-# Source the .env file
-if [ -f "deployment/.env" ]; then
-  echo "Sourcing .env file..."
-  source .deployment/.env
-else
-  echo ".env file not found. Exiting."
-  exit 1
-fi
-
 # Ensure USER are set
 
 if [ -z "$USER" ]; then
@@ -86,17 +77,31 @@ check_and_create_network "frontend-network"
 check_and_create_network "backend-network"
 
 
-# Combine environment variables from common and db into one file,
-cat ../config/anythingllm/anythingllm.env ../config/common/common.env > ../config/combined.env
 
 # Change back to the original directory where the command was issued
 original_dir=$(pwd)
 cd "$original_dir" || exit
 
-# Docker Compose command
+# Combine environment variables from common and db into one file,
+cat ../config/anythingllm/anythingllm.env ../config/common/common.env > ../config/combined.env
+
+# calling all necessary compose,y passing -p
+# will create different stacks in portainer
 docker compose \
+  -p infra \
+  --env-file ../config/combined.env \
   -f deployment/compose.infra.yml \
-  -f deployment/compose.ai.yml \
+  "$@"
+
+docker compose \
+  -p inference \
+  --env-file ../config/combined.env \
+  -f deployment/compose.inference.yml \
+  "$@"
+
+docker compose \
+  -p observability \
+  --env-file ../config/combined.env \
   -f deployment/compose.observability.yml \
   "$@"
 
