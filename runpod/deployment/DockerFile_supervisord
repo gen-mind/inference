@@ -1,0 +1,65 @@
+# Base image for Python
+FROM python:3.11.7-slim-bookworm
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Install dependencies for Python and system tools
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    supervisor \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install NATS server
+RUN wget https://github.com/nats-io/nats-server/releases/download/v2.9.17/nats-server-v2.9.17-linux-amd64.tar.gz \
+    && tar zxvf nats-server-v2.9.17-linux-amd64.tar.gz -C /usr/local/bin --strip-components=1 \
+    && rm nats-server-v2.9.17-linux-amd64.tar.gz
+
+# Install YugabyteDB
+# First, check if the file exists in the build context; if not, download it
+#COPY ./yugabyte-2.16.0.0-linux.tar.gz /app/ || wget https://downloads.yugabyte.com/releases/2.16.0.0/yugabyte-2.16.0.0-linux.tar.gz -P /app/
+#
+#RUN tar -xvf /app/yugabyte-2.16.0.0-linux.tar.gz --directory /usr/local/ \
+#    && rm /app/yugabyte-2.16.0.0-linux.tar.gz
+# Install YugabyteDB
+#COPY deployment/yugabyte-2.16.0.0-linux.tar.gz /app/
+#RUN tar -xvf /app/yugabyte-2.16.0.0-linux.tar.gz --directory /usr/local/ \
+#    && rm /app/yugabyte-2.16.0.0-linux.tar.gz
+
+
+# Set the PYTHONPATH environment variable
+ENV PYTHONPATH="/app"
+
+# Copy API and rembg code from src folder and install dependencies
+COPY ../src/api /app/api
+COPY ../src/rembg /app/rembg
+COPY ../src/lib/lib_py /app/lib_py
+
+# Copy the requirements files for both services
+COPY ../src/api/requirements.txt /app/api/requirements.txt
+COPY ../src/rembg/requirements.txt /app/rembg/requirements.txt
+
+# Copy configs
+COPY ../src/config/api.env /app/api/.env
+COPY ../src/config/nats-cli.env /app/api/nats-cli.env
+COPY ../src/config/rembg.env /app/rembg/rembg.env
+COPY ../src/config/nats-cli.env /app/rembg/nats-cli.env
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r /app/api/requirements.txt \
+    && pip install --no-cache-dir -r /app/rembg/requirements.txt \
+    && rm -rf /root/.cache
+
+# Create directories for the components
+RUN mkdir -p /app/logs /data/nats /home/yugabyte/var /data/temp
+
+# Copy the supervisor configuration file
+COPY deployment/supervisord.conf /etc/supervisor/supervisord.conf
+
+# Expose necessary ports
+EXPOSE 80 4222 8222 7000 9000 5433 9042
+
+# Command to start supervisor
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
