@@ -77,7 +77,7 @@ check_and_create_network() {
 check_and_create_network "frontend-network"
 check_and_create_network "backend-network"
 
-
+COMBINED_ENV=config/combined.env
 # Check if combined.env exists, if not create it
 if [ ! -f "$COMBINED_ENV" ]; then
   touch "$COMBINED_ENV"
