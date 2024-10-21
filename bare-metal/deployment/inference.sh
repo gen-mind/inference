@@ -96,7 +96,7 @@ pwd
 docker compose \
   -p infra \
   --env-file ../config/combined.env \
-  -f ../compose.infra.yml \
+  -f compose.infra.yml \
   "$@"
 
 docker compose \
