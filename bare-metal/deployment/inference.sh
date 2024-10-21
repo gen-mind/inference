@@ -101,19 +101,19 @@ cd "$original_dir" || exit
 docker compose \
   -p infra \
   --env-file config/combined.env \
-  -f deployment/compose.infra.yml \
+  -f deployment/compose-infra.yml \
   "$@"
 
 docker compose \
   -p inference \
   --env-file config/combined.env \
-  -f deployment/compose.inference.yml \
+  -f deployment/compose-inference.yml \
   "$@"
 
 docker compose \
   -p observability \
   --env-file config/combined.env \
-  -f deployment/compose.observability.yml \
+  -f deployment/compose-observability.yml \
   "$@"
 
 # Final message for authentik
