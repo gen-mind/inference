@@ -42,6 +42,7 @@ services:
       - prom_data:/prometheus
     networks:
       - backend-network
+      - frontend-network
     labels:
       - "traefik.enable=true"
       - "logging=promtail"
