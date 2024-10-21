@@ -87,6 +87,8 @@ fi
 # Combine environment variables from anythingllm.env and common.env
 cat ../config/anythingllm/anythingllm.env ../config/common/common.env > "$COMBINED_ENV"
 
+echo "updated $COMBINED_ENV"
+
 # calling all necessary compose,y passing -p
 # will create different stacks in portainer
 docker compose \
