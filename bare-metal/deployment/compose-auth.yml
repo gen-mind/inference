@@ -1,3 +1,28 @@
+networks:
+  frontend-network:
+    external: true
+    driver: bridge
+  backend-network:
+    external: true
+    driver: bridge
+
+
+volumes:
+  # authentic volumes
+  authentic_postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH}/authentik/postgres
+
+  authentic_redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH}/authentik/redis
+
 services:
   postgres:
     image: docker.io/library/postgres:16.4

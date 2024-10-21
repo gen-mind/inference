@@ -34,6 +34,7 @@ ensure_dir() {
 ensure_dir "data" "$USER" "$USER"
 ensure_dir "data/portainer" "$USER" "$USER"
 ensure_dir "data/letsencrypt" "$USER" "$USER"
+ensure_dir "data/anythingllm" "$USER" "$USER"
 ensure_dir "data/loki" "$USER" "$USER"
 ensure_dir "data/portainer/compose" "$USER" "$USER"
 ensure_dir "data/portainer/tls" "$USER" "$USER"
