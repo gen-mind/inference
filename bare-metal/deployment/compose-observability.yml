@@ -36,17 +36,13 @@ services:
     container_name: obsrv-prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
-    ports:
-      - 9090:9090
     restart: unless-stopped
     volumes:
       - ${CONFIG_PATH}/prometheus:/etc/prometheus
       - prom_data:/prometheus
-    expose:
-      - 9090
     networks:
-      - backend-network
       - frontend-network
+      - backend-network
     labels:
       - "traefik.enable=true"
       - "logging=promtail"
