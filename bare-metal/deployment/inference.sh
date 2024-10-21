@@ -79,16 +79,19 @@ check_and_create_network "backend-network"
 
 
 # Check if combined.env exists, if not create it
-COMBINED_ENV="config/combined.env"
-
 if [ ! -f "$COMBINED_ENV" ]; then
   touch "$COMBINED_ENV"
 fi
 
-# Combine environment variables from anythingllm.env and common.env
-cat config/anythingllm/anythingllm.env config/common/common.env config/tgi/tgi.env config/.env > "$COMBINED_ENV"
+# Combine environment variables from anythingllm.env, common.env, tgi.env, and .env into combined.env
+if [ -f "config/anythingllm/anythingllm.env" ] && [ -f "config/common/common.env" ] && [ -f "config/tgi/tgi.env" ] && [ -f "config/.env" ]; then
+  cat config/anythingllm/anythingllm.env config/common/common.env config/tgi/tgi.env config/.env > "$COMBINED_ENV"
+  echo "updated $COMBINED_ENV"
+else
+  echo "One or more environment files are missing or not readable."
+fi
 
-echo "updated $COMBINED_ENV"
+
 
 # calling all necessary compose,y passing -p
 # will create different stacks in portainer
@@ -110,7 +113,3 @@ docker compose \
   -f deployment/compose-observability.yml \
   "$@"
 
-# Final message for authentik
-echo "Important: the first time you install authentik"
-echo "go to /if/flow/initial-setup/"
-echo "You also need to login authentik admin and setup application/provider for each service you want to use authentik auth"
