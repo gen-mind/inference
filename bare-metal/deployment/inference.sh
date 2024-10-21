@@ -89,6 +89,8 @@ cat ../config/anythingllm/anythingllm.env ../config/common/common.env > "$COMBIN
 
 echo "updated $COMBINED_ENV"
 
+pwd
+
 # calling all necessary compose,y passing -p
 # will create different stacks in portainer
 docker compose \
