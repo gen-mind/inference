@@ -10,7 +10,6 @@ Whether you're serving **employees in your company** or **users of your app**, d
    🌐 *Pro*: Full control over the deployment, cost-effective at scale.  
    ⚙️ *Con*: Infrastructure setup and maintenance.
 
----
 
 ## 🔍 **This Repository**
 
@@ -20,8 +19,6 @@ As a community, we will collect and explore various approaches to serving LLMs i
 - 🖥️ [Bare metal (multi-GPU)](./bare-metalreadme.md)  
 - ⚙️ [GPU virtual machines](./bare-metalreadme.md) 
 
----
-
 ## 🚀 **Performance Comparison**
 
 We will compare the **performance** of multiple inference servers, including:
@@ -30,14 +27,12 @@ We will compare the **performance** of multiple inference servers, including:
 - 💡 **SGlang**  
 - 💻 **Aphrodite**
 
----
 
 ## 🎛️ **Inference UIs**
 
 We will also explore different UIs for serving LLMs:
 - 🌐 **AnythingLLM**
 
----
 
 ## 🧮 **Quantization**: What, When, and Why?
 
@@ -51,7 +46,6 @@ We will also explore different UIs for serving LLMs:
 - 🎯 If precision is critical for your application  
 - 🔬 For tasks requiring fine-tuned model accuracy
 
----
 
 ## 🎉 **Join the Community!**
 
