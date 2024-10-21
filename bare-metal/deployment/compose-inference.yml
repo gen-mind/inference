@@ -76,6 +76,7 @@ services:
     restart: unless-stopped
     networks:
       - frontend-network
+      - backend-network
     labels:
       - "traefik.enable=true"
       # Router for sticky app
