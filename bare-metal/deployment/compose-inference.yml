@@ -1,4 +1,3 @@
-services:
 networks:
   frontend-network:
     external: true
@@ -15,6 +14,8 @@ volumes:
       o: bind
       device: ${DATA_PATH}/anythingllm
 
+
+services:
   tgi:
     image: ghcr.io/huggingface/text-generation-inference:latest
     container_name: tgi

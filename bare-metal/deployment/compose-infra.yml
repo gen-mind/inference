@@ -1,10 +1,26 @@
 networks:
   frontend-network:
-#    external: true
+    external: true
     driver: bridge
   backend-network:
-#    external: true
+    external: true
     driver: bridge
+
+    
+volumes:
+  traefik_storage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH}/certificates
+
+  portainer_storage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DATA_PATH}/portainer
 
 services:
   traefik:
@@ -19,7 +35,7 @@ services:
       - backend-network
       - frontend-network
     volumes:
-      - ${DATA_PATH}/certificates:/letsencrypt
+      - traefik_storage:/letsencrypt
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     restart: unless-stopped
     command:
@@ -51,7 +67,7 @@ services:
     command: -H unix:///var/run/docker.sock
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${DATA_PATH}/portainer:/data
+      - portainer_storage:/data
     depends_on:
       - traefik
     networks:
@@ -65,53 +81,3 @@ services:
       - "traefik.http.routers.infra-portainer.entrypoints=websecure"
       - "traefik.http.routers.infra-portainer.tls.certresolver=myresolver"
       - "traefik.http.services.infra-portainer.loadbalancer.server.port=9000"
-
-  whoami:
-    image: containous/whoami:latest
-    container_name: infra-whoami
-    networks:
-      - frontend-network
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.infra-whoami.rule=Host(`${CB_AI_DOMAIN}`) && PathPrefix(`/whoami`)"
-      - "traefik.http.middlewares.infra-whoami-stripprefix.stripprefix.prefixes=/whoami"
-      - "traefik.http.routers.infra-whoami.middlewares=infra-whoami-stripprefix"
-      - "traefik.http.routers.infra-whoami.entrypoints=websecure"
-      - "traefik.http.routers.infra-whoami.tls.certresolver=myresolver"
-      - "traefik.http.services.infra-whoami.loadbalancer.server.port=80"
-    depends_on:
-      - traefik
-
-volumes:
-  # prometheus volume, must be defined here
-  prom_data:
-    driver: local
-    driver_opts:
-        type: none
-        o: bind
-        device: ${DATA_PATH}/prometheus
-  # authentic volumes
-  authentic_postgres_data:
-    driver: local
-    driver_opts:
-        type: none
-        o: bind
-        device: ${DATA_PATH}/authentik/postgres
-  authentic_redis_data:
-    driver: local
-    driver_opts:
-        type: none
-        o: bind
-        device: ${DATA_PATH}/authentik/redis
-  grafana-storage:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${DATA_PATH}/grafana/provisioning
-  grafana-provisioning:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${DATA_PATH}/grafana/provisioning
