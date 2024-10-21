@@ -26,12 +26,11 @@ services:
       - "--api"
       - "--api.dashboard=true"
       - "--providers.docker=true"
-#      - "--providers.file.watch=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.email=${CB_AI_SSL_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.email=${INFERENCE_SSL_EMAIL}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--log.level=INFO"
@@ -45,20 +44,6 @@ services:
       - "traefik.enable=true"
       - "logging=promtail"
       - "logging_jobname=containerlogs"
-#      - "traefik.http.routers.traefik.rule=Host(`${CB_AI_DOMAIN}`)"
-#      - "traefik.http.routers.traefik.service=api@internal"
-#      - "traefik.http.routers.traefik.entrypoints=websecure"
-#      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
-##      - "traefik.http.routers.traefik.middlewares=authtraefik"
-##      - "traefik.http.middlewares.authtraefik.basicauth.users=user:$apr1$rEPGrvGu$54EqkL6az8vfJVGtyOUIQ." # user/mypassword
-#
-#      # global redirect to https
-#      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
-#      - "traefik.http.routers.http-catchall.entrypoints=web"
-#      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
-#
-#      # middleware redirect
-#      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
   portainer:
     image: portainer/portainer-ce:latest

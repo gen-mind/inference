@@ -40,6 +40,7 @@ ensure_dir() {
 }
 
 # Ensure directories exist and have correct permissions
+ensure_dir "data" "$USER" "$USER"
 ensure_dir "data/portainer" "$USER" "$USER"
 ensure_dir "data/letsencrypt" "$USER" "$USER"
 ensure_dir "data/loki" "$USER" "$USER"
@@ -70,6 +71,24 @@ sudo chown 472:472 data/grafana/data  # Set ownership to Grafana's UID and GID
 sudo chmod 755 data/grafana/data      # Set permissions
 
 
+# Verify if Docker networks exist, if not, create them as external
+check_and_create_network() {
+  network_name=$1
+  if ! docker network ls --format "{{.Name}}" | grep -q "^$network_name\$"; then
+    echo "Creating external Docker network: $network_name"
+    docker network create --driver bridge "$network_name"
+  else
+    echo "Docker network already exists: $network_name"
+  fi
+}
+
+check_and_create_network "frontend-network"
+check_and_create_network "backend-network"
+
+
+# Combine environment variables from common and db into one file,
+cat ../config/anythingllm/anythingllm.env ../config/common/common.env > ../config/combined.env
+
 # Change back to the original directory where the command was issued
 original_dir=$(pwd)
 cd "$original_dir" || exit
@@ -78,10 +97,10 @@ cd "$original_dir" || exit
 docker compose \
   -f deployment/compose.infra.yml \
   -f deployment/compose.ai.yml \
-  -f deployment/compose.auth.yml \
   -f deployment/compose.observability.yml \
   "$@"
 
 # Final message for authentik
-echo "Important: \n first time install authentik go to /if/flow/initial-setup/"
+echo "Important: the first time you install authentik"
+echo "go to /if/flow/initial-setup/"
 echo "You also need to login authentik admin and setup application/provider for each service you want to use authentik auth"

@@ -52,7 +52,6 @@ volumes:
     labels:
       - "traefik.enable=true"
       # Router for tgi app inference inference.cognix.ch
-#      - "traefik.http.routers.tgi.rule=Host(`${CB_AI_DOMAIN}`) && PathPrefix(`/tgi{regex:$$|/.*}`))"
       - "traefik.http.routers.tgi.rule=Host(`${CB_AI_INFERENCE}`)"
       - "traefik.http.routers.tgi.entrypoints=websecure"
       - "traefik.http.routers.tgi.tls.certresolver=myresolver"

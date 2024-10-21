@@ -10,21 +10,7 @@ alerting:
       timeout: 10s
       api_version: v1
 
-  # Attach these labels to any time series or alerts when communicating with
-  # external systems (federation, remote storage, Alertmanager).
-  # external_labels:
-  #  monitor: 'cognix-monitor'
-
-# A scrape configuration containing one endpoint to scrape:
-# Here it's Prometheus itself.
-
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-#  - job_name: 'prometheus'
-#    # Override the global default and scrape targets from this job every 5 seconds.
-#    scrape_interval: 5s
-#    static_configs:
-#      - targets: ['localhost:9090']
 
 ## disabled to get host system logs
 #  - job_name: system
@@ -34,6 +20,9 @@ scrape_configs:
 #        labels:
 #          job: varlogs
 #          __path__: /var/log/*log
+  - job_name: 'tgi'
+    static_configs:
+      - targets: [ 'tgi:80' ]
 
   - job_name: 'traefik'
     static_configs:
@@ -51,11 +40,6 @@ scrape_configs:
   - job_name: 'nvidia-smi-exporter'
     static_configs:
       - targets: [ 'obsrv-nvidia-smi-exporter:9835' ]
-
-
-    #  - job_name: 'nats-exporter'
-#    static_configs:
-#    - targets: [ 'nats-exporter:7777' ]
 
 
   - job_name: 'prometheus'
