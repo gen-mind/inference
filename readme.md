@@ -14,10 +14,10 @@ Whether you're serving **employees in your company** or **users of your app**, d
 ## 🔍 **This Repository**
 
 As a community, we will collect and explore various approaches to serving LLMs in different environments, such as **on-premises** 🏢 or even **air-gapped environments** 🔒. Our goal is to collaboratively evaluate and share best practices.
-
+- ⚙️ [Bare metal (multi-GPU) and GPU virtual machines](./bare-metal/readme.md) 
 - 💻 [RunPod](./runpod/readme.md)  
-- 🖥️ [Bare metal (multi-GPU)](./bare-metalreadme.md)  
-- ⚙️ [GPU virtual machines](./bare-metalreadme.md) 
+- Vast AI
+
 
 ## 🚀 **Performance Comparison**
 
