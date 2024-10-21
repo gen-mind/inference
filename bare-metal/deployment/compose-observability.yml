@@ -6,6 +6,7 @@ networks:
     external: true
     driver: bridge
 
+
 volumes:
   # prometheus
   prom_data:
@@ -45,6 +46,7 @@ services:
       - 9090
     networks:
       - backend-network
+      - frontend-network
     labels:
       - "traefik.enable=true"
       - "logging=promtail"
