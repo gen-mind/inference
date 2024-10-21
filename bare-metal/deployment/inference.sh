@@ -86,7 +86,7 @@ if [ ! -f "$COMBINED_ENV" ]; then
 fi
 
 # Combine environment variables from anythingllm.env and common.env
-cat config/anythingllm/anythingllm.env config/common/common.env config/tgi/tgi.env > "$COMBINED_ENV"
+cat config/anythingllm/anythingllm.env config/common/common.env config/tgi/tgi.env config/.env > "$COMBINED_ENV"
 
 echo "updated $COMBINED_ENV"
 
