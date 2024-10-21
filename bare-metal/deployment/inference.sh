@@ -103,7 +103,7 @@ docker compose \
 docker compose \
   -p inference \
   --env-file ../config/combined.env \
-  compose.inference.yml \
+  -f deployment/compose.inference.yml \
   "$@"
 
 docker compose \
