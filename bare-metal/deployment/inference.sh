@@ -77,11 +77,6 @@ check_and_create_network "frontend-network"
 check_and_create_network "backend-network"
 
 
-
-# Change back to the original directory where the command was issued
-original_dir=$(pwd)
-cd "$original_dir" || exit
-
 # Check if combined.env exists, if not create it
 COMBINED_ENV="../config/combined.env"
 
@@ -97,19 +92,19 @@ cat ../config/anythingllm/anythingllm.env ../config/common/common.env > "$COMBIN
 docker compose \
   -p infra \
   --env-file ../config/combined.env \
-  -f deployment/compose.infra.yml \
+  -f compose.infra.yml \
   "$@"
 
 docker compose \
   -p inference \
   --env-file ../config/combined.env \
-  -f deployment/compose.inference.yml \
+  -f compose.inference.yml \
   "$@"
 
 docker compose \
   -p observability \
   --env-file ../config/combined.env \
-  -f deployment/compose.observability.yml \
+  -f compose.observability.yml \
   "$@"
 
 # Final message for authentik
