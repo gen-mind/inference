@@ -90,25 +90,26 @@ cat ../config/anythingllm/anythingllm.env ../config/common/common.env > "$COMBIN
 echo "updated $COMBINED_ENV"
 
 pwd
+ls
 
 # calling all necessary compose,y passing -p
 # will create different stacks in portainer
 docker compose \
   -p infra \
   --env-file ../config/combined.env \
-  -f compose.infra.yml \
+  compose.infra.yml \
   "$@"
 
 docker compose \
   -p inference \
   --env-file ../config/combined.env \
-  -f ../compose.inference.yml \
+  compose.inference.yml \
   "$@"
 
 docker compose \
   -p observability \
   --env-file ../config/combined.env \
-  -f ../compose.observability.yml \
+  compose.observability.yml \
   "$@"
 
 # Final message for authentik
