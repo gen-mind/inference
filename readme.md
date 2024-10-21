@@ -1,36 +1,66 @@
-How can I serve a custom LLM for multiple users?
-Whatever those users are the employyee of your company, or the user's of the app you are developing, 
-if you want to serve an LLM there are two options:
-- Use a SaaS service, like OpenAI, Anthropic and many others
-- Deploy an inference server able to serve multiple concurrent requests
+# 🚀 **Serving a Custom LLM for Multiple Users**
 
-describe differences
+Whether you're serving **employees in your company** or **users of your app**, deploying a Large Language Model (LLM) requires choosing between two major options:
 
-In these repo I'll collect all the possible approaches to serve the LLM inside the 
-boundary that fits my needs which will include, cloud, on-premises or even air-gaped 
+1. **SaaS Services** like OpenAI, Anthropic, and many others.  
+   💼 *Pro*: No infrastructure needed, fast setup.  
+   🛠️ *Con*: Dependency on external providers, pricing per usage.
 
-I want also to compare performances of different inference servers
-https://www.reddit.com/r/LocalLLaMA/comments/1f0txwc/what_is_the_best_inference_engine_for_a/
+2. **Inference Servers** capable of handling **multiple concurrent requests**.  
+   🌐 *Pro*: Full control over the deployment, cost-effective at scale.  
+   ⚙️ *Con*: Infrastructure setup and maintenance.
 
-what is quantization
-when to use it and when not
+---
 
-vLLM benchmark https://github.com/LambdaLabsML/vllm-benchmark
-vLLM disable usage stats
-about https://docs.vllm.ai/en/latest/serving/distributed_serving.html
+## 🔍 **This Repository**
 
-- runpod
-- lambda labs (multi-gpu) https://github.com/LambdaLabsML/llama/tree/main/deployment
-- bare metal
-- ray serve https://docs.ray.io/en/latest/serve/index.html
+As a community, we will collect and explore various approaches to serving LLMs in different environments, such as **on-premises** 🏢 or even **air-gapped environments** 🔒. Our goal is to collaboratively evaluate and share best practices.
 
-https://www.reddit.com/r/LocalLLaMA/comments/1fw5ffm/kvcompress_kv_cache_compression_for/
+- 💻 [RunPod](./runpod/readme.md)  
+- 🖥️ [Bare metal (multi-GPU)](./bare-metalreadme.md)  
+- ⚙️ [GPU virtual machines](./bare-metalreadme.md) 
 
-Inference server
-- VLLM
-- TGI
-- SGlang
-- Aphrodite
+---
 
-Inference UI
-- AnythingLLM
+## 🚀 **Performance Comparison**
+
+We will compare the **performance** of multiple inference servers, including:
+- 🏅 **vLLM**  
+- 🚀 **TGI**  
+- 💡 **SGlang**  
+- 💻 **Aphrodite**
+
+---
+
+## 🎛️ **Inference UIs**
+
+We will also explore different UIs for serving LLMs:
+- 🌐 **AnythingLLM**
+
+---
+
+## 🧮 **Quantization**: What, When, and Why?
+
+**Quantization** reduces the precision of model weights (e.g., from FP32 to INT8) to make the model more lightweight and faster. But when should you use it?
+
+✅ **When to use**:  
+- 🖥️ Low-memory environments  
+- ⚡ Need for speed and efficiency
+
+❌ **When NOT to use**:  
+- 🎯 If precision is critical for your application  
+- 🔬 For tasks requiring fine-tuned model accuracy
+
+---
+
+## 🎉 **Join the Community!**
+
+This repository is a community effort, and we invite contributions, discussions, and ideas from everyone interested in serving LLMs! 🤝 Together, we will explore and document different configurations and approaches to help the entire community grow.
+
+Stay tuned as we collaborate on this journey! 😄
+
+
+
+
+
+
