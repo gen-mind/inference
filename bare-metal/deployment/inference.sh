@@ -94,19 +94,19 @@ echo "updated $COMBINED_ENV"
 docker compose \
   -p infra \
   --env-file ../config/combined.env \
-  -f compose.infra.yml \
+  -f ../compose.infra.yml \
   "$@"
 
 docker compose \
   -p inference \
   --env-file ../config/combined.env \
-  -f compose.inference.yml \
+  -f ../compose.inference.yml \
   "$@"
 
 docker compose \
   -p observability \
   --env-file ../config/combined.env \
-  -f compose.observability.yml \
+  -f ../compose.observability.yml \
   "$@"
 
 # Final message for authentik
