@@ -47,6 +47,8 @@ services:
       - '${MAX_TOTAL_TOKENS}'
       - '--max-input-length'
       - '${MAX_INPUT_LENGTH}'
+      - '--port'
+      - '80'
     shm_size: 1gb
     networks:
       - frontend-network
@@ -80,7 +82,7 @@ services:
     labels:
       - "traefik.enable=true"
       # Router for sticky app
-      - "traefik.http.routers.anythingllm.rule=Host(`${INFERENCE_DOMAIN}`)"
+      - "traefik.http.routers.anythingllm.rule=Host(`${CHAT_DOMAIN}`)"
       - "traefik.http.routers.anythingllm.entrypoints=websecure"
       - "traefik.http.routers.anythingllm.tls.certresolver=myresolver"
       - "traefik.http.services.anythingllm.loadbalancer.server.port=3001"
