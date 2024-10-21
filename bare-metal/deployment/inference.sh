@@ -85,7 +85,13 @@ fi
 
 # Combine environment variables from anythingllm.env, common.env, tgi.env, and .env into combined.env
 if [ -f "config/anythingllm/anythingllm.env" ] && [ -f "config/common/common.env" ] && [ -f "config/tgi/tgi.env" ] && [ -f "config/.env" ]; then
-  cat config/anythingllm/anythingllm.env config/common/common.env config/tgi/tgi.env config/.env > "$COMBINED_ENV"
+  cat config/anythingllm/anythingllm.env
+  echo ''
+  cat config/common/common.env
+  echo ''
+  cat config/tgi/tgi.env
+  echo ''
+  cat config/.env
   echo "updated $COMBINED_ENV"
 else
   echo "One or more environment files are missing or not readable."
