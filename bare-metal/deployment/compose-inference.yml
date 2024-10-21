@@ -52,6 +52,7 @@ services:
     shm_size: 1gb
     networks:
       - frontend-network
+      - backend-network
     labels:
       - "traefik.enable=true"
       # Router for tgi app inference inference.cognix.ch
