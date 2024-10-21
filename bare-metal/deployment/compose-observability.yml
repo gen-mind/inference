@@ -41,7 +41,6 @@ services:
       - ${CONFIG_PATH}/prometheus:/etc/prometheus
       - prom_data:/prometheus
     networks:
-      - frontend-network
       - backend-network
     labels:
       - "traefik.enable=true"
