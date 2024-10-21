@@ -75,7 +75,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.infra-portainer.rule=Host(`${CB_AI_DOMAIN}`) && PathPrefix(`/portainer`)"
+      - "traefik.http.routers.infra-portainer.rule=Host(`${BASE_DOMAIN}`) && PathPrefix(`/portainer`)"
       - "traefik.http.middlewares.infra-portainer-stripprefix.stripprefix.prefixes=/portainer"
       - "traefik.http.routers.infra-portainer.middlewares=infra-portainer-stripprefix"
       - "traefik.http.routers.infra-portainer.entrypoints=websecure"

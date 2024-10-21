@@ -53,7 +53,7 @@ services:
     labels:
       - "traefik.enable=true"
       # Router for tgi app inference inference.cognix.ch
-      - "traefik.http.routers.tgi.rule=Host(`${CB_AI_INFERENCE}`)"
+      - "traefik.http.routers.tgi.rule=Host(`${INFERENCE_DOMAIN}`)"
       - "traefik.http.routers.tgi.entrypoints=websecure"
       - "traefik.http.routers.tgi.tls.certresolver=myresolver"
       - "traefik.http.services.tgi.loadbalancer.server.port=80"
@@ -90,7 +90,7 @@ services:
     labels:
       - "traefik.enable=true"
       # Router for sticky app
-      - "traefik.http.routers.anythingllm.rule=Host(`${CB_CHAT}`)"
+      - "traefik.http.routers.anythingllm.rule=Host(`${CHAT_DOMAIN}`)"
       - "traefik.http.routers.anythingllm.entrypoints=websecure"
       - "traefik.http.routers.anythingllm.tls.certresolver=myresolver"
       - "traefik.http.services.anythingllm.loadbalancer.server.port=3001"

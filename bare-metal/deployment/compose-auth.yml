@@ -96,7 +96,7 @@ services:
       - frontend-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.auth-server.rule=Host(`${CB_AI_DOMAIN}`)"
+      - "traefik.http.routers.auth-server.rule=Host(`${BASE_DOMAIN}`)"
       - "traefik.http.routers.auth-server.entrypoints=websecure"
       - "traefik.http.routers.auth-server.tls.certresolver=myresolver"
       - "traefik.http.services.auth-server.loadbalancer.server.port=9000"
