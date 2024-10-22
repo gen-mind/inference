@@ -34,6 +34,16 @@ We will also explore different UIs for serving LLMs:
 - 🌐 **AnythingLLM**
 
 
+## **Grafana enabled**
+All that you need to monitor your AI cluster
+![gpu](https://github.com/gen-mind/inference/blob/main/assets/gpu.jpg?raw=true)
+
+![gpu](https://github.com/gen-mind/inference/blob/main/assets/tgi.jpg?raw=true)
+
+![gpu](https://github.com/gen-mind/inference/blob/main/assets/token_s.jpg?raw=true)
+
+![gpu](https://github.com/gen-mind/inference/blob/main/assets/traefik.jpg?raw=true)
+
 ## 🧮 **Quantization**: What, When, and Why?
 
 **Quantization** reduces the precision of model weights (e.g., from FP32 to INT8) to make the model more lightweight and faster. But when should you use it?
