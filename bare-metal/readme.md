@@ -71,9 +71,8 @@ Once the deployment is complete, you can access the LLM via the following domain
 
 You can access Portainer and Grafana at the following links:
 
-- **Portainer**: `BASE_DOMAIN/portainer`
-- **LLM UI**: `BASE_DOMAIN/grafana`
-
+- **Portainer**: `BASE_DOMAIN/portainer` - it will ask to setup user and pass at the first login
+- **Grafana**: `BASE_DOMAIN/grafana` - user: admin, pass grafana (defined in the docker compose for observability)
 
 Feel free to reach out for any questions or contribute to improving this deployment guide!
 
