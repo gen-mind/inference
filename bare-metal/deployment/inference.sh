@@ -52,6 +52,9 @@ ensure_dir "data/authentik/media/custom-templates" "$USER" "$USER"
 ensure_dir "data/authentik/media/public" "$USER" "$USER"
 ensure_dir "data/models" "$USER" "$USER"
 ensure_dir "data/grafana/provisioning" "$USER" "$USER"
+ensure_dir "data/grafana/provisioning/datasources" "$USER" "$USER"
+ensure_dir "data/grafana/provisioning/dashboards" "$USER" "$USER"
+ensure_dir "data/grafana/provisioning/dashboards_json" "$USER" "$USER"
 ensure_dir "data/grafana/data" "$USER" "$USER"
 
 # Ensure data/grafana directories exist and have correct permissions
@@ -98,6 +101,10 @@ else
   echo "One or more environment files are missing or not readable."
 fi
 
+# copy grafana datasources config in the right folder
+cp -r config/grafana/datasources/* data/grafana/provisioning/datasources/
+cp -r config/grafana/dashboards/* data/grafana/provisioning/dashboards/
+cp -r config/grafana/dashboards_json/* data/grafana/provisioning/dashboards_json/
 
 
 # calling all necessary compose,y passing -p
